@@ -5,6 +5,7 @@ let days = [
     (1, Day1.fuelCalculator)
     (2, Day2.runProgram)
     (3, Day3.run)
+    (4, Day4.countPasswords)
            ] |> Map.ofList
 
 [<EntryPoint>]

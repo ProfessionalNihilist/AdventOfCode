@@ -13,12 +13,15 @@ module AdventOfCode.Input
         cookies
 
     let inputForDay day =
-        let filename = sprintf "./inputs/%d" day
-        match File.Exists filename with
-        | false ->
-            let uri = sprintf "https://adventofcode.com/2019/day/%d/input" day
-            let input = Http.RequestString(uri, cookieContainer = authCookieContainer)
-            File.WriteAllText(filename, input)
-            fun () -> input
-        | true ->
-            fun () -> File.ReadAllText filename
+        match day with
+        | 4 -> fun () -> "235741-706948"
+        | _ ->
+            let filename = sprintf "./inputs/%d" day
+            match File.Exists filename with
+            | false ->
+                let uri = sprintf "https://adventofcode.com/2019/day/%d/input" day
+                let input = Http.RequestString(uri, cookieContainer = authCookieContainer)
+                File.WriteAllText(filename, input)
+                fun () -> input
+            | true ->
+                fun () -> File.ReadAllText filename
