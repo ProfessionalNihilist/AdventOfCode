@@ -17,7 +17,6 @@ type Arguments =
 
 [<EntryPoint>]
 let main argv =
-    let getInput =  2019
     let parser = ArgumentParser.Create<Arguments>(programName = "AdventOfCode.exe")
 
     let processInput (i: ParseResults<Arguments>) =

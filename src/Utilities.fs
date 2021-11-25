@@ -18,7 +18,8 @@ module AdventOfCode
         match (year, day) with
         | (2019, 4) -> fun () -> "235741-706948"
         | _ ->
-            let filename = sprintf "./inputs/%d" day
+            Directory.CreateDirectory (sprintf "./inputs/%d" year) |> ignore
+            let filename = sprintf "./inputs/%d/%d" year day
             match File.Exists filename with
             | false ->
                 let uri = sprintf "https://adventofcode.com/%d/day/%d/input" year day
