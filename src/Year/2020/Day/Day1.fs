@@ -3,11 +3,11 @@
 open AdventOfCode
 open System
 
-let reportRepair: Solution = fun getInput ->
+let reportRepair: Solution = fun rawInput ->
     let splitOptions = StringSplitOptions.RemoveEmptyEntries
                         ||| StringSplitOptions.TrimEntries
 
-    let expenses = (getInput ()).Split("\n", splitOptions)
+    let expenses = rawInput.Split("\n", splitOptions)
                     |> Seq.map Int32.Parse
 
     let part1 = 

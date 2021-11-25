@@ -4,8 +4,8 @@ open AdventOfCode
 
 type Point = {X: int; Y: int; Step: int }
 
-let crossedWires (getInput: unit -> string) =
-    let wires = getInput().Split("\n")
+let crossedWires (rawInput: string) =
+    let wires = rawInput.Split("\n")
     let w1 = wires.[0]
     let w2 = wires.[1]
 

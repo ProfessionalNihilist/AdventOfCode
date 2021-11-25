@@ -3,7 +3,7 @@ module Year2019.Day5
 open Intcode
 open AdventOfCode
 
-let sunnyWithAChanceOfAsteroids (getInput: unit -> string)  =
+let sunnyWithAChanceOfAsteroids (rawInput: string)  =
     let run (intcode: int[]) =
         let mutable pc = 0;
         let mutable exit = false
@@ -19,7 +19,7 @@ let sunnyWithAChanceOfAsteroids (getInput: unit -> string)  =
             | Halt -> exit <- true
         intcode.[0]
 
-    let input = Day2.parseInput (getInput())
+    let input = Day2.parseInput rawInput
     sprintf "Final output: %d" (run input)
         |> Ok
         |> Answer.Two

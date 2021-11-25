@@ -3,8 +3,7 @@
 open AdventOfCode
 open System
 
-let tobogganTrajectory (getInput: unit -> string) =
-    let rawInput = getInput ()
+let tobogganTrajectory (rawInput: string) =
     let characterInput = rawInput |> Seq.filter (Char.IsControl >> not)
     let length = rawInput |> Seq.takeWhile (Char.IsControl >> not) |> Seq.length
     let lines = rawInput |> Seq.where (Char.IsControl) |> Seq.length

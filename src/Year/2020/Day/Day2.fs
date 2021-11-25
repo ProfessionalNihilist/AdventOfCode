@@ -3,8 +3,8 @@
 open AdventOfCode
 open System
 
-let passwordPhilosophy (getInput: unit -> string) =
-    let input  = (getInput ()).Split("\n", StringSplitOptions.RemoveEmptyEntries)
+let passwordPhilosophy (rawInput: string) =
+    let input  = rawInput.Split("\n", StringSplitOptions.RemoveEmptyEntries)
 
     let parseRule (rule: string) =
         let mutable i = 0

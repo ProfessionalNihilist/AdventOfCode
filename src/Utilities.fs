@@ -20,7 +20,7 @@ module AdventOfCode
         | None -> Error "no answer"
         | Some x -> Ok (map x)
 
-    type Solution = (unit -> string) -> Answer
+    type Solution = string -> Answer
 
     let authCookieContainer =
         let cookies = CookieContainer()

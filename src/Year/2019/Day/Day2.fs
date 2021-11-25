@@ -51,7 +51,7 @@ let parseInput (input: string): Intcode =
         |> Seq.map Int32.Parse
         |> Seq.toArray
 
-let programAlarm (getInput: unit -> string) =
+let programAlarm rawInput =
     let run (i: int[]) one two =
         i.[1] <- one
         i.[2] <- two
@@ -69,10 +69,9 @@ let programAlarm (getInput: unit -> string) =
                 | Ok (finished, inc) ->
                     pc <- pc + inc
                     exit <- finished
-
         i.[0]
 
-    let i = parseInput (getInput())
+    let i = parseInput rawInput
     let pairs = seq {
         for a in 1 .. 99 do
             for b in 1 .. 99 do

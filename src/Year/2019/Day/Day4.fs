@@ -2,10 +2,9 @@ module Year2019.Day4
 
 open AdventOfCode
 
-let secureContainer (getInput: unit -> string) =
-    let input = getInput()
-    let min = input.Split("-").[0] |> int32
-    let max = input.Split("-").[1] |> int32
+let secureContainer (rawInput: string) =
+    let min = rawInput.Split("-").[0] |> int32
+    let max = rawInput.Split("-").[1] |> int32
 
     let validPasswords = seq {
         for i in min .. max do
