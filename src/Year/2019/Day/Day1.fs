@@ -16,5 +16,4 @@ let theTryannyOfTheRocketEquation: Solution = fun rawInput ->
                 |> Seq.sumBy fuelForMass
 
     sprintf "Total fuel requirement: %d" fuel
-        |> Ok
         |> Answer.Two

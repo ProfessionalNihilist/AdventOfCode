@@ -11,9 +11,9 @@ module AdventOfCode
         static member NoAnswers = 
             { Part1 = Error "no answer"; Part2 = Error "no answer" }
         static member One answer =
-            { Answer.NoAnswers with Part1 = answer }
+            { Answer.NoAnswers with Part1 = Ok answer }
         static member Two answer =
-            { Answer.NoAnswers with Part2 = answer }
+            { Answer.NoAnswers with Part2 = Ok answer }
 
     let unwrap opt map =
         match opt with

@@ -68,4 +68,4 @@ let passportProcessing (input: string) =
             Part2 = sprintf "%d passports with valid values" (keyValuesAreValid) |> Result.Ok }
     | Failure (error,_,_) ->
         System.Diagnostics.Debugger.Break()
-        Answer.One (Result.Error error)
+        failwith error

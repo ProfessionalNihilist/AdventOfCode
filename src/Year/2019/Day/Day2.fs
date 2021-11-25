@@ -80,7 +80,6 @@ let programAlarm rawInput =
 
     pairs |> Seq.find (fun (a,b) -> (run (Array.copy i) a b) = 19690720)
     |> sprintf "Inputs are %A"
-    |> Ok
     |> Answer.Two
 
 
