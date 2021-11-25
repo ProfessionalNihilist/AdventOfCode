@@ -1,5 +1,7 @@
 module Year2019.Day4
 
+open AdventOfCode
+
 let secureContainer (getInput: unit -> string) =
     let input = getInput()
     let min = input.Split("-").[0] |> int32
@@ -34,5 +36,6 @@ let secureContainer (getInput: unit -> string) =
                 yield i
     }
 
-    printfn "Found %d possible passwords" (validPasswords |> Seq.length)
+    sprintf "Found %d possible passwords" (validPasswords |> Seq.length)
+        |> Answer.Two
 

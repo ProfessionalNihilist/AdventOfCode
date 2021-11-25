@@ -1,5 +1,6 @@
 open System
 open Argu
+open AdventOfCode
 
 let years = [
         (2019, Year2019.Days.asMap)
@@ -17,10 +18,20 @@ type Arguments =
 
 [<EntryPoint>]
 let main argv =
+    let printResults (answer: Answer) =
+        let printResult result part =
+            match result with
+            | Ok m -> printfn "Part %d: %s" part m
+            | _ -> printfn "No answer for part %d" part
+
+        printResult (answer.Part1) 1
+        printResult (answer.Part2) 2
+
     #if DEBUG
     let year = years |> Seq.map (fun x -> x.Key) |> Seq.max
     let day = years.[year] |> Seq.map (fun x -> x.Key) |> Seq.max
     years.[year].[day] (AdventOfCode.inputForDay year day)
+        |> printResults
     Environment.Exit(0)
     #endif
 
@@ -37,10 +48,15 @@ let main argv =
         | "q" -> ()
         | "h" -> Console.WriteLine(parser.PrintUsage ())
         | _ -> 
-            processInput <| parser.Parse([|input|]) 
+            processInput
+                <| parser.Parse([|input|])
+                |> printResults
             waitForInput ()
 
     match argv.Length with
     | 0 -> waitForInput ()
-    | _ -> parser.Parse argv |> processInput
+    | _ ->
+        parser.Parse argv
+            |> processInput
+            |> printResults
     0

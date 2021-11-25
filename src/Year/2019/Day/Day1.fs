@@ -15,4 +15,4 @@ let theTryannyOfTheRocketEquation: Solution = fun (getInput: unit -> string) ->
                 |> Seq.map snd
                 |> Seq.sumBy fuelForMass
 
-    printfn "Total fuel requirement: %d" fuel
+    Answer.Two <| sprintf "Total fuel requirement: %d" fuel

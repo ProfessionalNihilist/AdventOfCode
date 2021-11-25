@@ -1,4 +1,6 @@
 ﻿module Year2019.Day6
 
+open AdventOfCode
+
 let universalOrbitMap getInput =
-    printfn "<no solution for day>"
+    { Part1 = Error "no answer"; Part2 = Error "no answer" }

@@ -1,6 +1,7 @@
 module Year2019.Day2
 
 open System
+open AdventOfCode
 
 type Intcode = int[]
 type Opcode = Intcode -> int -> Result<bool * int, string>
@@ -79,6 +80,6 @@ let programAlarm (getInput: unit -> string) =
     }
 
     pairs |> Seq.find (fun (a,b) -> (run (Array.copy i) a b) = 19690720)
-    |> printfn "Inputs are %A"
+    |> sprintf "Inputs are %A" |> Answer.Two
 
 

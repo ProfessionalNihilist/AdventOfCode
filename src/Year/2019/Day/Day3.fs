@@ -1,5 +1,6 @@
 module Year2019.Day3
 open System
+open AdventOfCode
 
 type Point = {X: int; Y: int; Step: int }
 
@@ -46,4 +47,5 @@ let crossedWires (getInput: unit -> string) =
                     |> Seq.map (fun x -> w1cm.[x] + w2cm.[x])
                     |> Seq.min
 
-    printfn "shortest length cross-over is %A" nearest
+    sprintf "shortest length cross-over is %A" nearest
+        |> Answer.Two

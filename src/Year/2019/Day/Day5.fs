@@ -1,6 +1,7 @@
 module Year2019.Day5
 
 open Intcode
+open AdventOfCode
 
 let sunnyWithAChanceOfAsteroids (getInput: unit -> string)  =
     let run (intcode: int[]) =
@@ -19,4 +20,5 @@ let sunnyWithAChanceOfAsteroids (getInput: unit -> string)  =
         intcode.[0]
 
     let input = Day2.parseInput (getInput())
-    printfn "Final output: %d" (run input)
+    sprintf "Final output: %d" (run input)
+        |> Answer.Two

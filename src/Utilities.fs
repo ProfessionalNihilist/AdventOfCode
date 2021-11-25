@@ -3,7 +3,20 @@ module AdventOfCode
     open System.Net
     open FSharp.Data
 
-    type Solution = (unit -> string) -> unit
+    type Answer = {
+        Part1: Result<string, string>
+        Part2: Result<string, string>
+    }
+    with 
+        static member Two answer =
+            { Part1 = Error "no answer"; Part2 = Ok answer }
+
+    let unwrap opt map =
+        match opt with
+        | None -> Error "no answer"
+        | Some x -> Ok (map x)
+
+    type Solution = (unit -> string) -> Answer
 
     let authCookieContainer =
         let cookies = CookieContainer()

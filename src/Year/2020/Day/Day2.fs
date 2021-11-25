@@ -1,5 +1,6 @@
 ﻿module Year2020.Day2
 
+open AdventOfCode
 open System
 
 let passwordPhilosophy (getInput: unit -> string) =
@@ -48,4 +49,7 @@ let passwordPhilosophy (getInput: unit -> string) =
         |> Seq.where (parseRule >> matchesPositionRule)
         |> Seq.length
 
-    printfn "%d valid passwords" validPositional
+    {
+        Part1 = sprintf "%d" validMinMax |> Ok
+        Part2 = sprintf "%d" validPositional |> Ok
+    }
