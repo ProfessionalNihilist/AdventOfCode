@@ -14,5 +14,6 @@ let asMap =
         (9, Day9.encodingError)
         (10, Day10.adaptorArray)
         (11, Day11.seatingSystem)
+        (12, Day12.rainRisk)
     ] |> Map.ofList
 
