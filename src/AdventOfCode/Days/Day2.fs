@@ -51,25 +51,34 @@ let parseInput (input: string): Intcode =
         |> Seq.toArray
 
 let runProgram (getInput: unit -> string) =
+    let run (i: int[]) one two =
+        i.[1] <- one
+        i.[2] <- two
+
+        let mutable pc = 0;
+        let mutable exit = false
+
+        while not exit do
+            match Opcodes.ContainsKey i.[pc] with
+            | false -> failwithf "Unknown opcode '%d'" pc
+            | true ->
+                match Opcodes.[i.[pc]] i pc with
+                | Error message ->
+                    failwithf "Validation error: %s" message
+                | Ok (finished, inc) ->
+                    pc <- pc + inc
+                    exit <- finished
+
+        i.[0]
+
     let i = parseInput (getInput())
+    let pairs = seq {
+        for a in 1 .. 99 do
+            for b in 1 .. 99 do
+                yield (a,b)
+    }
 
-    // manual correction as specified
-    i.[1] <- 12
-    i.[2] <- 2
+    pairs |> Seq.find (fun (a,b) -> (run (Array.copy i) a b) = 19690720)
+    |> printfn "Inputs are %A"
 
-    let mutable pc = 0;
-    let mutable exit = false
-
-    while not exit do
-        match Opcodes.ContainsKey i.[pc] with
-        | false -> failwithf "Unknown opcode '%d'" pc
-        | true ->
-            match Opcodes.[i.[pc]] i pc with
-            | Error message ->
-                failwithf "Validation error: %s" message
-            | Ok (finished, inc) ->
-                pc <- pc + inc
-                exit <- finished
-
-    printfn "Program result is %d" i.[0]
 
