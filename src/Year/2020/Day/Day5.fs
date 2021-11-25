@@ -1,8 +1,6 @@
 ﻿module Year2020.Day5
 
 open AdventOfCode
-open System
-open FParsec
 
 type Ticket = 
     { Row: int
@@ -40,7 +38,6 @@ let binaryBoarding (input: string) =
     let tickets = input.Split('\n') |> Seq.map (parseTicket >> Ticket.New)
     let seatId = 
         tickets
-        //|> Seq.filter (fun x -> x.Column <> 0 && x.Column <> 127)
         |> Seq.sortBy (fun x -> x.SeatId)
         |> Seq.windowed 3
         |> Seq.filter findAdjacentSeats

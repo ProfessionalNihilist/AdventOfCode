@@ -8,5 +8,6 @@ let asMap =
         (3, Day3.tobogganTrajectory)
         (4, Day4.passportProcessing)
         (5, Day5.binaryBoarding)
+        (6, Day6.customCustoms)
     ] |> Map.ofList
 
