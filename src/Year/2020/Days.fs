@@ -9,5 +9,8 @@ let asMap =
         (4, Day4.passportProcessing)
         (5, Day5.binaryBoarding)
         (6, Day6.customCustoms)
+        (7, Day7.handyHaversacks)
+        (8, Day8.handheldHalting)
+        (9, Day9.encodingError)
     ] |> Map.ofList
 
