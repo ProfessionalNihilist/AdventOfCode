@@ -7,7 +7,7 @@ module AdventOfCode.Input
         let cookies = CookieContainer()
         let auth = Cookie(
                     "session",
-                    "53616c7465645f5fa63391ac93bd62b7c63de0defa64ec18e07392959b69f03fe28537930c4fe2c922a0e75e25ad0ac0")
+                    "")
         auth.Domain <- "adventofcode.com"
         cookies.Add(auth)
         cookies
