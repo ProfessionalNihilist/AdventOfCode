@@ -1,8 +1,9 @@
 ﻿module Year2019.Day1
 
+open AdventOfCode
 open System
 
-let fuelCalculator (getInput: unit -> string) =
+let theTryannyOfTheRocketEquation: Solution = fun (getInput: unit -> string) ->
     let rec fuelForMass m =
         let fm = Math.Max(0, (m / 3) - 2)
         if fm = 0 then 0

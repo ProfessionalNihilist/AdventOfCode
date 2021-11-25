@@ -50,7 +50,7 @@ let parseInput (input: string): Intcode =
         |> Seq.map Int32.Parse
         |> Seq.toArray
 
-let runProgram (getInput: unit -> string) =
+let programAlarm (getInput: unit -> string) =
     let run (i: int[]) one two =
         i.[1] <- one
         i.[2] <- two

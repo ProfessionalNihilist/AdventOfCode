@@ -3,7 +3,7 @@ open System
 
 type Point = {X: int; Y: int; Step: int }
 
-let run (getInput: unit -> string) =
+let crossedWires (getInput: unit -> string) =
     let wires = getInput().Split("\n")
     let w1 = wires.[0]
     let w2 = wires.[1]

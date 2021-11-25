@@ -2,7 +2,7 @@ module Year2019.Day5
 
 open Intcode
 
-let runProgram (getInput: unit -> string)  =
+let sunnyWithAChanceOfAsteroids (getInput: unit -> string)  =
     let run (intcode: int[]) =
         let mutable pc = 0;
         let mutable exit = false

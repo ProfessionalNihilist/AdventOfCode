@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# AoC inputs
+src/inputs
+
 # Mac junk
 .DS_Store
 

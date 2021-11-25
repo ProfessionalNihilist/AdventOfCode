@@ -3,6 +3,7 @@ open Year2020
 
 let asMap = 
     [
-        (1, Day1.solution)
+        (1, Day1.reportRepair)
+        (2, Day2.solution)
     ] |> Map.ofList
 

@@ -1,6 +1,6 @@
 module Year2019.Day4
 
-let countPasswords (getInput: unit -> string) =
+let secureContainer (getInput: unit -> string) =
     let input = getInput()
     let min = input.Split("-").[0] |> int32
     let max = input.Split("-").[1] |> int32

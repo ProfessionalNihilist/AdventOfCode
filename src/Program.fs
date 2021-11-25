@@ -18,9 +18,7 @@ type Arguments =
 [<EntryPoint>]
 let main argv =
     let parser = ArgumentParser.Create<Arguments>(programName = "AdventOfCode.exe")
-
     let processInput (i: ParseResults<Arguments>) =
-        
         let year = i.GetResult Year
         let day = i.GetResult Day
         years.[year].[day] (AdventOfCode.inputForDay year day)
@@ -28,21 +26,12 @@ let main argv =
     let rec waitForInput () =
         printfn "Choose a year / day to run"
         let input = Console.ReadLine()
-
         match input with
         | "q" -> ()
         | "h" -> Console.WriteLine(parser.PrintUsage ())
         | _ -> 
             processInput <| parser.Parse([|input|]) 
             waitForInput ()
-            //match Int32.TryParse input with
-            //| (true, d) when days.ContainsKey d ->
-            //    days.[d] (getInput d)
-
-            //| (_, d) when not (days.ContainsKey d) ->
-            //    printfn "No solution for that day"
-            //| _ ->
-            //    printfn "Type a number (or 'q' to quit)"
 
     match argv.Length with
     | 0 -> waitForInput ()
