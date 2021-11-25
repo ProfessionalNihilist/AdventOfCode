@@ -17,6 +17,13 @@ type Arguments =
 
 [<EntryPoint>]
 let main argv =
+    #if DEBUG
+    let year = years |> Seq.map (fun x -> x.Key) |> Seq.max
+    let day = years.[year] |> Seq.map (fun x -> x.Key) |> Seq.max
+    years.[year].[day] (AdventOfCode.inputForDay year day)
+    Environment.Exit(0)
+    #endif
+
     let parser = ArgumentParser.Create<Arguments>(programName = "AdventOfCode.exe")
     let processInput (i: ParseResults<Arguments>) =
         let year = i.GetResult Year
