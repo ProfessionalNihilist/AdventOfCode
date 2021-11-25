@@ -3,11 +3,11 @@ open FSharp.Data
 
 let days = [
     (1, Day1.fuelCalculator)
+    (2, Day2.runProgram)
            ] |> Map.ofList
 
 [<EntryPoint>]
 let main argv =
-    printfn "Choose a day to run"
     let rec waitForInput () =
         let input = Console.ReadLine()
 
@@ -23,5 +23,6 @@ let main argv =
                 printfn "Type a number (or 'q' to quit)"
                 waitForInput ()
 
+    printfn "Choose a day to run"
     waitForInput ()
     0
