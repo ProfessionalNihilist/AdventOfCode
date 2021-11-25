@@ -1,4 +1,4 @@
-module Day4
+module Year2019.Day4
 
 let countPasswords (getInput: unit -> string) =
     let input = getInput()

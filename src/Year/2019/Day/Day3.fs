@@ -1,4 +1,4 @@
-module Day3
+module Year2019.Day3
 open System
 
 type Point = {X: int; Y: int; Step: int }

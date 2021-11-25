@@ -1,4 +1,4 @@
-module Day2
+module Year2019.Day2
 
 open System
 
