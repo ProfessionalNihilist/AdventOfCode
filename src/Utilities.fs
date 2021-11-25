@@ -33,7 +33,7 @@ module AdventOfCode
 
     let inputForDay year day =
         match (year, day) with
-        | (2019, 4) -> fun () -> "235741-706948"
+        | (2019, 4) -> "235741-706948"
         | _ ->
             Directory.CreateDirectory (sprintf "./inputs/%d" year) |> ignore
             let filename = sprintf "./inputs/%d/%d" year day
@@ -42,6 +42,6 @@ module AdventOfCode
                 let uri = sprintf "https://adventofcode.com/%d/day/%d/input" year day
                 let input = Http.RequestString(uri, cookieContainer = authCookieContainer)
                 File.WriteAllText(filename, input)
-                fun () -> input
+                input
             | true ->
-                fun () -> File.ReadAllText filename
+                File.ReadAllText filename

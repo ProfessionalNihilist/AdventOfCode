@@ -16,11 +16,13 @@
     <Compile Include="Year\2020\Day\Day1.fs" />
     <Compile Include="Year\2020\Day\Day2.fs" />
     <Compile Include="Year\2020\Day\Day3.fs" />
+    <Compile Include="Year\2020\Day\Day4.fs" />
     <Compile Include="Year\2020\Days.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Argu" Version="6.1.1" />
+    <PackageReference Include="FParsec" Version="1.1.1" />
     <PackageReference Include="FSharp.Data" Version="3.3.3" />
   </ItemGroup>
 </Project>
