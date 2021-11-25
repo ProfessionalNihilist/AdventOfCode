@@ -5,7 +5,7 @@ open System
 type Intcode = int[]
 type Opcode = Intcode -> int -> Result<bool * int, string>
 
-module private Opcodes =
+module Opcodes =
     let hasParameters (i: Intcode, pc) =
         if i.Length > pc + 2 then None
         else Some "No input values"
