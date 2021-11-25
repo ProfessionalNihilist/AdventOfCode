@@ -12,5 +12,7 @@ let asMap =
         (7, Day7.handyHaversacks)
         (8, Day8.handheldHalting)
         (9, Day9.encodingError)
+        (10, Day10.adaptorArray)
+        (11, Day11.seatingSystem)
     ] |> Map.ofList
 
