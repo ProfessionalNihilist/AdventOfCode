@@ -1,7 +1,7 @@
 module Day3
 open System
 
-type Point = {X: int; Y: int }
+type Point = {X: int; Y: int; Step: int }
 
 let run (getInput: unit -> string) =
     let wires = getInput().Split("\n")
@@ -17,7 +17,7 @@ let run (getInput: unit -> string) =
         | _ -> (0, 0)
 
     let wireCoordinates (wire: string) =
-        let mutable state = { X = 0; Y= 0 }
+        let mutable state = { X = 0; Y= 0; Step = 0 }
 
         [
             for p in wire.Split(",") do
@@ -26,18 +26,24 @@ let run (getInput: unit -> string) =
                 for _ in 1 .. i do
                     state <- { state with
                                 X = state.X + (x)
-                                Y = state.Y + (y) }
-                    yield (state.X, state.Y)
+                                Y = state.Y + (y)
+                                Step = state.Step + 1}
+                    yield ((state.X, state.Y), state.Step)
         ]
 
-    let intersecions =
-        Set.intersect
-            (wireCoordinates w1 |> Set.ofSeq)
-            (wireCoordinates w2 |> Set.ofSeq)
+    let w1c = wireCoordinates w1
+    let w2c = wireCoordinates w2
 
-    let nearest = intersecions
-                    |> Seq.map (fun (x,y) -> Math.Abs x + Math.Abs y)
-                    |> Seq.filter (fun x -> x > 0)
+    let intersections =
+        Set.intersect
+            (w1c |> Seq.map fst |> Set.ofSeq)
+            (w2c |> Seq.map fst |> Set.ofSeq)
+
+    let w1cm = Map.ofSeq w1c
+    let w2cm = Map.ofSeq w2c
+
+    let nearest = intersections
+                    |> Seq.map (fun x -> w1cm.[x] + w2cm.[x])
                     |> Seq.min
 
-    printfn "closest cross-over is %d" nearest
+    printfn "shortest length cross-over is %A" nearest
