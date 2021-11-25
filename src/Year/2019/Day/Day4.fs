@@ -37,5 +37,5 @@ let secureContainer (getInput: unit -> string) =
     }
 
     sprintf "Found %d possible passwords" (validPasswords |> Seq.length)
+        |> Ok
         |> Answer.Two
-

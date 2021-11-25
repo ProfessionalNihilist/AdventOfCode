@@ -48,4 +48,5 @@ let crossedWires (getInput: unit -> string) =
                     |> Seq.min
 
     sprintf "shortest length cross-over is %A" nearest
+        |> Ok
         |> Answer.Two

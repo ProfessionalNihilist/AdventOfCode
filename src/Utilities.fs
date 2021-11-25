@@ -8,8 +8,12 @@ module AdventOfCode
         Part2: Result<string, string>
     }
     with 
+        static member NoAnswers = 
+            { Part1 = Error "no answer"; Part2 = Error "no answer" }
+        static member One answer =
+            { Answer.NoAnswers with Part1 = answer }
         static member Two answer =
-            { Part1 = Error "no answer"; Part2 = Ok answer }
+            { Answer.NoAnswers with Part2 = answer }
 
     let unwrap opt map =
         match opt with

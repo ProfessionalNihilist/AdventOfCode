@@ -21,4 +21,5 @@ let sunnyWithAChanceOfAsteroids (getInput: unit -> string)  =
 
     let input = Day2.parseInput (getInput())
     sprintf "Final output: %d" (run input)
+        |> Ok
         |> Answer.Two
