@@ -1,25 +1,27 @@
-﻿// Learn more about F# at http://fsharp.org
-
 open System
-open System.Net
 open FSharp.Data
+
+let days = [
+    (1, Day1.fuelCalculator)
+           ] |> Map.ofList
 
 [<EntryPoint>]
 let main argv =
-    let input = Http.RequestString( "https://adventofcode.com/2019/day/1/input",
-                                    cookieContainer = AoC.Utilities.authCookieContainer)
+    printfn "Choose a day to run"
+    let rec waitForInput () =
+        let input = Console.ReadLine()
 
-    let rec fuelForMass m =
-        let fm = Math.Max(0, (m / 3) - 2)
-        if fm = 0 then 0
-        else fm + fuelForMass fm
+        match input with
+        | "q" -> ()
+        | _ ->
+            match Int32.TryParse input with
+            | (true, d) when days.ContainsKey d ->
+                days.[d] (AdventOfCode.Input.inputForDay d)
+            | (_, d) when not (days.ContainsKey d) ->
+                printfn "No solution for that day"
+            | _ ->
+                printfn "Type a number (or 'q' to quit)"
+                waitForInput ()
 
-    let fuel = input.Split("\n")
-                |> Seq.map Int32.TryParse
-                |> Seq.filter fst
-                |> Seq.map snd
-                |> Seq.sumBy fuelForMass
-
-    printfn "Total fuel requirement: %d" fuel
-
-    0 // return an integer exit code
+    waitForInput ()
+    0

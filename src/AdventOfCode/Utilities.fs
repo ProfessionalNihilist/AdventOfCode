@@ -1,5 +1,6 @@
-module AoC.Utilities
+module AdventOfCode.Input
     open System.Net
+    open FSharp.Data
 
     let authCookieContainer =
         let cookies = CookieContainer()
@@ -8,5 +9,8 @@ module AoC.Utilities
                     "")
         auth.Domain <- "adventofcode.com"
         cookies.Add(auth)
-
         cookies
+
+    let inputForDay day =
+        let uri = sprintf "https://adventofcode.com/2019/day/%d/input" day
+        fun () -> Http.RequestString(uri, cookieContainer = authCookieContainer)
