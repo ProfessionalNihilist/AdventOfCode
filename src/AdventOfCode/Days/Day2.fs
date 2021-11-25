@@ -3,7 +3,7 @@ module Day2
 open System
 
 type Intcode = int[]
-type Opcode = Intcode -> int -> Result<bool, string>
+type Opcode = Intcode -> int -> Result<bool * int, string>
 
 module private Opcodes =
     let hasParameters (i: Intcode, pc) =
@@ -27,7 +27,7 @@ module private Opcodes =
         | _ ->
             let o = i.[pc + 3]
             i.[o] <- i.[i.[pc + 1]] + i.[i.[pc + 2]]
-            Ok false
+            Ok (false, 4)
 
     let multiply: Opcode = fun i pc ->
         match validate i pc with
@@ -35,9 +35,9 @@ module private Opcodes =
         | _ ->
             let o = i.[pc + 3]
             i.[o] <- i.[i.[pc + 1]] * i.[i.[pc + 2]]
-            Ok false
+            Ok (false, 4)
 
-    let exit: Opcode = fun _ _ -> Ok true
+    let exit: Opcode = fun _ _ -> Ok (true, 1)
 
 let Opcodes = [
                 (1, Opcodes.add)
@@ -67,9 +67,9 @@ let runProgram (getInput: unit -> string) =
             match Opcodes.[i.[pc]] i pc with
             | Error message ->
                 failwithf "Validation error: %s" message
-            | Ok e ->
-                pc <- pc + 4
-                exit <- e
+            | Ok (finished, inc) ->
+                pc <- pc + inc
+                exit <- finished
 
     printfn "Program result is %d" i.[0]
 
