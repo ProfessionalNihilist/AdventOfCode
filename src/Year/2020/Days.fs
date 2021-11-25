@@ -15,5 +15,7 @@ let asMap =
         (10, Day10.adaptorArray)
         (11, Day11.seatingSystem)
         (12, Day12.rainRisk)
+        (13, Day13.shuttleSearch)
+        (14, Day14.dockingData)
     ] |> Map.ofList
 

@@ -23,6 +23,7 @@ let rainRisk (input: string) =
         | 'F', (true, v) -> Move (F, v)
         | 'L', (true, v) -> Turn (L, v)
         | 'R', (true, v) -> Turn (R, v)
+        | _ -> failwith "unexpected direction"
  
     let applyOrder (state: State) order =
         match order with
@@ -31,7 +32,7 @@ let rainRisk (input: string) =
                 match direction,ox,oy with
                 | L, x, y -> -y, x
                 | R, x, y -> y, -x
-            let rotation = match angle / 90 with | 1 -> r | 2 -> r >> r | 3 -> r >> r >> r
+            let rotation = match angle / 90 with | 1 -> r | 2 -> r >> r | 3 -> r >> r >> r | _ -> failwith "too many rotations"
             { state with Waypoint = rotation state.Waypoint  }
         | Move (h, distance) ->
             match h with
@@ -44,7 +45,8 @@ let rainRisk (input: string) =
                                         | N, (x, y) -> x, y + distance
                                         | S, (x, y) -> x, y - distance
                                         | E, (x, y) -> x + distance, y
-                                        | W, (x, y) -> x - distance, y }
+                                        | W, (x, y) -> x - distance, y
+                                        | _ -> failwith "illegal direction" }
             
     let finalPosition =
         input.Split("\n", StringSplitOptions.RemoveEmptyEntries)
