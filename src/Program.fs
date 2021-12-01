@@ -5,6 +5,7 @@ open AdventOfCode
 let years = [
         (2019, Year2019.Days.asMap)
         (2020, Year2020.Days.asMap)
+        (2021, Year2021.Days.asMap)
             ] |> Map.ofList
 
 type Arguments =

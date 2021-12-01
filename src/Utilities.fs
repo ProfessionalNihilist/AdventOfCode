@@ -2,6 +2,7 @@ module AdventOfCode
     open System.IO
     open System.Net
     open FSharp.Data
+    open System
 
     type Answer = {
         Part1: Result<string, string>
@@ -21,6 +22,10 @@ module AdventOfCode
         | Some x -> Ok (map x)
 
     type Solution = string -> Answer
+
+    let asLines (str: string) =
+        str.Split("\n", StringSplitOptions.RemoveEmptyEntries
+        ||| StringSplitOptions.TrimEntries)
 
     let authCookieContainer =
         let cookies = CookieContainer()
