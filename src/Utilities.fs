@@ -23,9 +23,11 @@ module AdventOfCode
 
     type Solution = string -> Answer
 
+    let trimAndEmpty = StringSplitOptions.RemoveEmptyEntries
+                        ||| StringSplitOptions.TrimEntries
+
     let asLines (str: string) =
-        str.Split("\n", StringSplitOptions.RemoveEmptyEntries
-        ||| StringSplitOptions.TrimEntries)
+        str.Split("\n", trimAndEmpty)
 
     let authCookieContainer =
         let cookies = CookieContainer()
