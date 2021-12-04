@@ -1,7 +1,5 @@
 ﻿module Year2021.Day2
-
 open AdventOfCode
-open System
 
 type Command = Forward of int | Down of int | Up of int
 
