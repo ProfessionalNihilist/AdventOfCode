@@ -52,3 +52,6 @@ module AdventOfCode
                 input
             | true ->
                 File.ReadAllText filename
+
+    module Array2D =
+        let flatten (A:'a[,]) = A |> Seq.cast<'a>
