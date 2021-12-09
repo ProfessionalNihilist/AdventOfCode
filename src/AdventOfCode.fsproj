@@ -33,6 +33,7 @@
     <Compile Include="Year\2021\Day\Day2.fs" />
     <Compile Include="Year\2021\Day\Day3.fs" />
     <Compile Include="Year\2021\Day\Day4.fs" />
+    <Compile Include="Year\2021\Day\Day5.fs" />
     <Compile Include="Year\2021\Days.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
