@@ -29,6 +29,9 @@ module AdventOfCode
     let asLines (str: string) =
         str.Split("\n", trimAndEmpty)
 
+    let split (sep: string) (str: string) =
+        str.Split(sep, trimAndEmpty)
+
     let authCookieContainer =
         let cookies = CookieContainer()
         let auth = Cookie(
