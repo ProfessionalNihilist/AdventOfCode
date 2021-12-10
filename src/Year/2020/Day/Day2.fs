@@ -17,7 +17,7 @@ let passwordPhilosophy (rawInput: string) =
 
         let readInt = Seq.takeWhile (Char.IsDigit)
                         >> String.Concat
-                        >> Int32.Parse
+                        >> int
 
         let min = readInt reader
         let max = reader |> Seq.skip 1 |> readInt
@@ -50,6 +50,6 @@ let passwordPhilosophy (rawInput: string) =
         |> Seq.length
 
     {
-        Part1 = sprintf "%d" validMinMax |> Ok
-        Part2 = sprintf "%d" validPositional |> Ok
+        Part1 = sprintf "%d" validMinMax
+        Part2 = sprintf "%d" validPositional
     }

@@ -64,6 +64,6 @@ let adaptorArray (input: string) =
             | [] -> ()
         }
 
-    {   Part1 = Ok (sprintf "product: %d" product)
-        Part2 = Ok (sprintf "%d valid combinations of adaptors" validCombinations) }
+    {   Part1 = sprintf "product: %d" product
+        Part2 = sprintf "%d valid combinations of adaptors" validCombinations }
 

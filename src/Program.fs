@@ -21,9 +21,7 @@ type Arguments =
 let main argv =
     let printResults (answer: Answer) =
         let printResult result part =
-            match result with
-            | Ok m -> printfn "Part %d: %s" part m
-            | _ -> printfn "No answer for part %d" part
+            printfn "Part %d: %s" part result
 
         printResult (answer.Part1) 1
         printResult (answer.Part2) 2

@@ -13,9 +13,7 @@ let customCustoms (input: string) =
     { Part1 = sprintf "sum is %d" (
                 forms |> Seq.sumBy
                     (Seq.filter Char.IsLetter >> Seq.distinct >> Seq.length))
-                |> Ok
       Part2 = sprintf "sum is %d" (
                 forms
                 |> Seq.map (fun x -> x.Split("\n", StringSplitOptions.RemoveEmptyEntries))
-                |> Seq.sumBy countQuestions)
-                |> Ok }
+                |> Seq.sumBy countQuestions) }

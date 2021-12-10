@@ -18,7 +18,7 @@ let tobogganTrajectory (rawInput: string) =
         >> Seq.reduce (*)
 
     { 
-        Part1 = sprintf "%d trees" (productOfTrees [3,1]) |> Ok
+        Part1 = sprintf "%d trees" (productOfTrees [3,1])
         Part2 = sprintf "%d product of trees" 
-                            (productOfTrees [ 1,1; 3,1; 5,1; 7,1; 1,2 ]) |> Ok
+                            (productOfTrees [ 1,1; 3,1; 5,1; 7,1; 1,2 ])
     }

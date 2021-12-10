@@ -59,6 +59,6 @@ let handheldHalting input =
     match run pAst input with
     | Failure (error, _, _) -> failwith error
     | Success (result, _, _) ->
-        { Part1 = Result.Ok (sprintf "acc before loop is %d" (findLoop result))
-          Part2 = Result.Ok (sprintf "acc after termination is %d" (findTerminalAcc result)) }
+        { Part1 = sprintf "acc before loop is %d" (findLoop result)
+          Part2 = sprintf "acc after termination is %d" (findTerminalAcc result) }
 

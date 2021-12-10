@@ -47,5 +47,5 @@ let binaryBoarding (input: string) =
 
     { Answer.One (sprintf "%d is the highest seatId"
         (tickets |> Seq.map (fun x -> x.SeatId) |> Seq.max ))
-        with Part2 = Result.Ok <| sprintf "My seat id is %d" seatId }
+        with Part2 = sprintf "My seat id is %d" seatId }
         

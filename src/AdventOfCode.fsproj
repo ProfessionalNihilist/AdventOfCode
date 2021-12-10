@@ -27,13 +27,14 @@
     <Compile Include="Year\2020\Day\Day12.fs" />
     <Compile Include="Year\2020\Day\Day13.fs" />
     <Compile Include="Year\2020\Day\Day14.fs" />
-    <Compile Include="Year\2020\Day\Day15.fs" />
     <Compile Include="Year\2020\Days.fs" />
     <Compile Include="Year\2021\Day\Day1.fs" />
     <Compile Include="Year\2021\Day\Day2.fs" />
     <Compile Include="Year\2021\Day\Day3.fs" />
     <Compile Include="Year\2021\Day\Day4.fs" />
     <Compile Include="Year\2021\Day\Day5.fs" />
+    <Compile Include="Year\2021\Day\Day6.fs" />
+    <Compile Include="Year\2021\Day\Day10.fs" />
     <Compile Include="Year\2021\Days.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

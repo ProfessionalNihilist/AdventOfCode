@@ -60,5 +60,5 @@ let dockingData (input: string) =
         |> (Seq.fold applyInstruction (Map.empty, String.Empty) >> fst)
         |> Map.toSeq |> Seq.sumBy snd
 
-    { Part1 = Ok (sprintf "%d" part1); Part2 = Ok (sprintf "%d" part2) }
+    { Part1 = sprintf "%d" part1; Part2 = sprintf "%d" part2 }
     

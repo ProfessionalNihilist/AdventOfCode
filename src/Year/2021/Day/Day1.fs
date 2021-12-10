@@ -20,5 +20,5 @@ let sonarSweep: Solution = fun (rawInput: string) ->
         |> Seq.filter (fun (l, r) -> r - l > 0)
         |> Seq.length
 
-    { Part1 = Ok (sprintf "%d" part1); Part2 = Ok (sprintf "%d" part2) }
+    { Part1 = sprintf "%d" part1; Part2 = sprintf "%d" part2 }
 

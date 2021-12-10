@@ -35,5 +35,5 @@ let ``hydrothermal Venture``: Solution = fun (rawInput: string) ->
     let part1 = lines |> Seq.filter (isDiagonal >> not) |> dangerous
     let part2 = dangerous lines
 
-    { Part1 = Result.Ok (sprintf "%d" part1); Part2 = Result.Ok (sprintf "%d" part2) }
+    { Part1 = sprintf "%d" part1; Part2 = sprintf "%d" part2 }
 

@@ -48,4 +48,4 @@ let encodingError (input: string) =
     let window, _ = findWindow weakness input
     let joined = (snd window) @ (fst window)
     let weakSum = List.min joined + List.max joined
-    { Part1 = (sprintf "%d" weakness |> Ok); Part2 = (sprintf "%d" weakSum) |> Ok }
+    { Part1 = sprintf "%d" weakness; Part2 = sprintf "%d" weakSum }

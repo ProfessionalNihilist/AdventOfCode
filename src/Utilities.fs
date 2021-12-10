@@ -5,21 +5,21 @@ module AdventOfCode
     open System
 
     type Answer = {
-        Part1: Result<string, string>
-        Part2: Result<string, string>
+        Part1: string
+        Part2: string
     }
     with 
         static member NoAnswers = 
-            { Part1 = Error "no answer"; Part2 = Error "no answer" }
+            { Part1 = "no answer"; Part2 = "no answer" }
         static member One answer =
-            { Answer.NoAnswers with Part1 = Ok answer }
+            { Answer.NoAnswers with Part1 = answer }
         static member Two answer =
-            { Answer.NoAnswers with Part2 = Ok answer }
+            { Answer.NoAnswers with Part2 = answer }
 
     let unwrap opt map =
         match opt with
-        | None -> Error "no answer"
-        | Some x -> Ok (map x)
+        | None -> "no answer"
+        | Some x -> (map x)
 
     type Solution = string -> Answer
 

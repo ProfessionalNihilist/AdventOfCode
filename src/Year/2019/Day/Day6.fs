@@ -29,4 +29,4 @@ let universalOrbitMap (rawInput: string) =
         |> Map.ofSeq
 
     
-    { Part1 = Error "no answer"; Part2 = Error "no answer" }
+    { Part1 = "no answer"; Part2 = "no answer" }
