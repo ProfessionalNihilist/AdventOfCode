@@ -7,7 +7,7 @@ open Years
 let part1 = 0L
 let part2 = 0L
 
-let (trebuchet: Solution) = fun (input: string) ->
+let trebuchet input =
     let perLine l = 
         String( [| Seq.find (Char.IsDigit) l; Seq.findBack (Char.IsDigit) l |] ) |> int64
 
@@ -39,5 +39,25 @@ let (trebuchet: Solution) = fun (input: string) ->
 
     part1, part2
 
+let day2 input =
+
+    part1,part2
+    
+let day3 input = part1,part2
+let day4 input = part1,part2
+let day5 input = part1,part2
+let day6 input = part1,part2
+let day7 input = part1,part2
+let day8 input = part1,part2
+let day9 input = part1,part2
+
 let register () =
     add 2023 1 trebuchet
+    // add 2023 2 day2
+    // add 2023 3 day3
+    // add 2023 4 day4
+    // add 2023 5 day5
+    // add 2023 6 day6
+    // add 2023 7 day7
+    // add 2023 8 day8
+    // add 2023 9 day9
