@@ -56,9 +56,8 @@ let dockingData (input: string) =
                 addresses |> Seq.fold (fun m a -> Map.add a value m) mem, mask
 
         input.Split('\n', StringSplitOptions.RemoveEmptyEntries)
-        |> Seq.map parseInstruction
-        |> (Seq.fold applyInstruction (Map.empty, String.Empty) >> fst)
-        |> Map.toSeq |> Seq.sumBy snd
+            |> Seq.map parseInstruction
+            |> (Seq.fold applyInstruction (Map.empty, String.Empty) >> fst)
+            |> Map.toSeq |> Seq.sumBy snd
 
-    { Part1 = sprintf "%d" part1; Part2 = sprintf "%d" part2 }
-    
+    part1,part2

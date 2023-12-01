@@ -8,27 +8,27 @@ let reportRepair: Solution = fun rawInput ->
                         ||| StringSplitOptions.TrimEntries
 
     let expenses = rawInput.Split("\n", splitOptions)
-                    |> Seq.map Int32.Parse
+                    |> Seq.map Int64.Parse
 
     let part1 = 
         let isExpense x y =
             match x + y with
-            | 2020 -> x * y |> Some
+            | 2020L -> x * y |> Some
             | _ -> None
         let expense = expenses
                     |> Seq.tryPick (fun x ->
                         expenses |> Seq.tryPick (isExpense x))
-        unwrap expense (sprintf "Expense is %d")
+        Option.defaultValue 0L expense
 
     let part2 = 
         let isExpense x y z =
             match x + y + z with
-            | 2020 -> x * y * z |> Some
+            | 2020L -> x * y * z |> Some
             | _ -> None
         let expense = expenses
                     |> Seq.tryPick (fun x ->
                         expenses |> Seq.tryPick (fun y ->
                             expenses |> Seq.tryPick (isExpense x y)))
-        unwrap expense (sprintf "Expense is %d")
+        Option.defaultValue 0L expense
 
-    { Part1 = part1; Part2 = part2 }
+    part1, part2

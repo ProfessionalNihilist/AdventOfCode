@@ -26,5 +26,4 @@ let ``lanternfish``: Solution = fun (rawInput: string) ->
     let part1 = numFish 80 rawInput
     let part2 = numFish 256 rawInput
 
-    { Part1 = sprintf "%d" part1; Part2 = sprintf "%d" part2 }
-
+    part1,part2 

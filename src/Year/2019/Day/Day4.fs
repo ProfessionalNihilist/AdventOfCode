@@ -35,5 +35,4 @@ let secureContainer (rawInput: string) =
                 yield i
     }
 
-    sprintf "Found %d possible passwords" (validPasswords |> Seq.length)
-        |> Answer.Two
+    0L, validPasswords |> Seq.length |> int64

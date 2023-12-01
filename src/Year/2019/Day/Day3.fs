@@ -46,6 +46,6 @@ let crossedWires (rawInput: string) =
     let nearest = intersections
                     |> Seq.map (fun x -> w1cm.[x] + w2cm.[x])
                     |> Seq.min
+                    |> int64
 
-    sprintf "shortest length cross-over is %A" nearest
-        |> Answer.Two
+    0L, nearest

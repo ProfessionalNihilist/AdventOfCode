@@ -23,5 +23,5 @@ let ``syntax scoring``: Solution = fun (rawInput: string) ->
     let part1 = lines |> Seq.choose getFirstError |> Seq.map points |> Seq.sum
     let part2 = 0
 
-    { Part1 = sprintf "%d" part1; Part2 = sprintf "%d" part2 }
+    part1,part2 
 

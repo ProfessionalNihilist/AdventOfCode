@@ -3,7 +3,7 @@
 open AdventOfCode
 open System
 
-let sonarSweep: Solution = fun (rawInput: string) ->
+let ``sonar sweep``: Solution = fun (rawInput: string) ->
     let parsed = asLines rawInput |> Seq.map Int32.Parse
 
     let part1 =
@@ -20,5 +20,5 @@ let sonarSweep: Solution = fun (rawInput: string) ->
         |> Seq.filter (fun (l, r) -> r - l > 0)
         |> Seq.length
 
-    { Part1 = sprintf "%d" part1; Part2 = sprintf "%d" part2 }
+    part1,part2 
 

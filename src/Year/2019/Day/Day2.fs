@@ -78,8 +78,9 @@ let programAlarm rawInput =
                 yield (a,b)
     }
 
-    pairs |> Seq.find (fun (a,b) -> (run (Array.copy i) a b) = 19690720)
+    pairs |> Seq.find (fun (a,b) -> (run (Array.copy i) a b) = 19690720) 
     |> sprintf "Inputs are %A"
-    |> Answer.Two
+    |> ignore
+    0L,0L
 
 

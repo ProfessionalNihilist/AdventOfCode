@@ -46,5 +46,4 @@ let ``giant squid``: Solution = fun (rawInput: string) ->
     let (lv, lw) = pickFirstWinner [(snd (pickLastWinner blocks numbers))] numbers
     let part2 = lw |> Array2D.flatten |> (score lv)
 
-    { Part1 = sprintf "%d" part1; Part2 = sprintf "%d" part2 }
-
+    part1,part2 

@@ -54,4 +54,4 @@ let rainRisk (input: string) =
         |> Seq.fold applyOrder { Ship = 0,0; Waypoint = 10,1 }
 
     let (x,y) = finalPosition.Ship
-    Answer.Two (sprintf "manhattan distance: %d" (Math.Abs(x) + Math.Abs(y)))
+    0L,Math.Abs(x) + Math.Abs(y) |> int64

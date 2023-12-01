@@ -41,4 +41,4 @@ let ``binary diagnostic``: Solution = fun (rawInput: string) ->
 
     let part2 = oxygen * co2
 
-    { Part1 = sprintf "%d" part1; Part2 = sprintf "%d" part2 }
+    0,part2 

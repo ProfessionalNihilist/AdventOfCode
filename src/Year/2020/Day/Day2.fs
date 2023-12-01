@@ -43,13 +43,12 @@ let passwordPhilosophy (rawInput: string) =
         input
         |> Seq.where (parseRule >> matchesMinMaxRule)
         |> Seq.length
+        |> int64
 
     let validPositional =
         input
         |> Seq.where (parseRule >> matchesPositionRule)
         |> Seq.length
+        |> int64
 
-    {
-        Part1 = sprintf "%d" validMinMax
-        Part2 = sprintf "%d" validPositional
-    }
+    validMinMax, validPositional

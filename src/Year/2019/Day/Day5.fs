@@ -20,5 +20,4 @@ let sunnyWithAChanceOfAsteroids (rawInput: string)  =
         intcode.[0]
 
     let input = Day2.parseInput rawInput
-    sprintf "Final output: %d" (run input)
-        |> Answer.Two
+    0L, run input |> int64

@@ -2,38 +2,6 @@
 
 open AdventOfCode
 open System
-open System.Numerics
-
-module Array2D =
-    let equalsVec (left: 'a [,]) (right: 'a [,]) =
-        let areEqual i =
-            let l = left.[i,0..]
-            let r = right.[i,0..]
-
-            let last = l.Length - (l.Length % Vector<'a>.Count)
-            let mutable c = 0
-            let mutable equals = true
-
-            while equals && c < last do
-                equals <- Vector(l, c).Equals(Vector(r, c))
-                c <- c + Vector<'a>.Count
-
-            while equals && c < l.Length do
-                equals <- l.[c] = r.[c]
-                c <- c + 1
-            equals
-
-        if left.Length = right.Length && Array2D.length1 left = Array2D.length1 right then
-            let indices = Array.init (Array2D.length1 left) id
-            indices |> Array.forall areEqual
-        else false
-
-    let countBy (f: 'a -> bool) (s: 'a [,]) =
-        let mutable count = 0       
-        for x in 0 .. (Array2D.length1 s) - 1 do
-            for y in 0 .. (Array2D.length2 s) - 1 do
-                if f (s.[x,y]) then count <- count + 1 
-        count
 
 let seatingSystem (input: string) =
     let length = input |> Seq.takeWhile (Char.IsWhiteSpace >> not) |> Seq.length
@@ -94,4 +62,4 @@ let seatingSystem (input: string) =
 
     let occupied = next |> Array2D.countBy (fun x -> x = 3uy)
 
-    Answer.Two (sprintf "%d occupied" occupied )
+    0L, int64 occupied

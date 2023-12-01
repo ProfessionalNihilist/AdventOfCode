@@ -11,7 +11,7 @@ let pign = spaces1 .>> skipString "->" .>> spaces1
 let pline = ppoint .>> pign .>>. ppoint |>> (fun ((x1,y1),(x2,y2)) -> {x1=x1;y1=y1;x2=x2;y2=y2})
 let plines = sepEndBy1 pline newline
 
-let ``hydrothermal Venture``: Solution = fun (rawInput: string) ->
+let ``hydrothermal venture``: Solution = fun (rawInput: string) ->
     let lines = match run plines rawInput with | Success (l,_,_) -> l | _ -> failwithf "failed"
     let isDiagonal (l: Line) = l.x1 <> l.x2 && l.y1 <> l.y2
     let getPoints (l: Line) = seq {
@@ -35,5 +35,4 @@ let ``hydrothermal Venture``: Solution = fun (rawInput: string) ->
     let part1 = lines |> Seq.filter (isDiagonal >> not) |> dangerous
     let part2 = dangerous lines
 
-    { Part1 = sprintf "%d" part1; Part2 = sprintf "%d" part2 }
-
+    part1,part2 

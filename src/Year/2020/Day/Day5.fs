@@ -45,7 +45,7 @@ let binaryBoarding (input: string) =
         |> Seq.pairwise
         |> Seq.pick findSeat
 
-    { Answer.One (sprintf "%d is the highest seatId"
-        (tickets |> Seq.map (fun x -> x.SeatId) |> Seq.max ))
-        with Part2 = sprintf "My seat id is %d" seatId }
+    let part1 = (tickets |> Seq.map (fun x -> x.SeatId) |> Seq.max )
+    
+    int64 part1, int64 seatId
         

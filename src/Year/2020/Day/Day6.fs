@@ -10,10 +10,12 @@ let customCustoms (input: string) =
         answered |> Seq.filter (fun c -> (group |> Seq.forall (Seq.contains c)))
         |> Seq.length
 
-    { Part1 = sprintf "sum is %d" (
+    let part1 = sprintf "sum is %d" (
                 forms |> Seq.sumBy
                     (Seq.filter Char.IsLetter >> Seq.distinct >> Seq.length))
-      Part2 = sprintf "sum is %d" (
+    let part2 = sprintf "sum is %d" (
                 forms
                 |> Seq.map (fun x -> x.Split("\n", StringSplitOptions.RemoveEmptyEntries))
-                |> Seq.sumBy countQuestions) }
+                |> Seq.sumBy countQuestions)
+
+    int64 part1, int64 part2

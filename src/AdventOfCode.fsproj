@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <PlatformTarget>x64</PlatformTarget>
+    <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Years.fs" />
     <Compile Include="Utilities.fs" />
     <Compile Include="Year\2019\Intcode.fs" />
     <Compile Include="Year\2019\Day\Day1.fs" />
@@ -44,6 +44,6 @@
     <PackageReference Include="Argu" Version="6.1.1" />
     <PackageReference Include="FParsec" Version="1.1.1" />
     <PackageReference Include="FSharp.Collections.ParallelSeq" Version="1.2.0" />
-    <PackageReference Include="FSharp.Data" Version="4.2.6" />
+    <PackageReference Include="FSharp.Data" Version="6.3.0" />
   </ItemGroup>
 </Project>

@@ -62,10 +62,9 @@ let passportProcessing (input: string) =
         
     match run records input with
     | Success (result,_,_) -> 
-        let hasValidKeys = result |> Seq.filter hasKeys |> Seq.length
-        let keyValuesAreValid = result |> Seq.filter hasKeys |> Seq.filter keysValid |> Seq.length
-        {   Part1 = sprintf "%d valid passports with valid keys" (hasValidKeys)
-            Part2 = sprintf "%d passports with valid values" (keyValuesAreValid) }
+        let hasValidKeys = result |> Seq.filter hasKeys |> Seq.length |> int64
+        let keyValuesAreValid = result |> Seq.filter hasKeys |> Seq.filter keysValid |> Seq.length |> int64
+        hasValidKeys, keyValuesAreValid
     | Failure (error,_,_) ->
         System.Diagnostics.Debugger.Break()
         failwith error

@@ -2,12 +2,6 @@ open System
 open Argu
 open AdventOfCode
 
-let years = [
-        (2019, Year2019.Days.asMap)
-        (2020, Year2020.Days.asMap)
-        (2021, Year2021.Days.asMap)
-            ] |> Map.ofList
-
 type Arguments =
     | [<Mandatory>] Year of year:int
     | [<Mandatory>] Day of day:int
@@ -19,43 +13,40 @@ type Arguments =
 
 [<EntryPoint>]
 let main argv =
-    let printResults (answer: Answer) =
-        let printResult result part =
-            printfn "Part %d: %s" part result
-
-        printResult (answer.Part1) 1
-        printResult (answer.Part2) 2
-
+    Year2019.Days.register ()
+    Year2020.Days.register ()
+    Year2021.Days.register ()
     #if DEBUG
-    let year = years |> Seq.map (fun x -> x.Key) |> Seq.max
-    let day = years.[year] |> Seq.map (fun x -> x.Key) |> Seq.max
-    years.[year].[day] (AdventOfCode.inputForDay year day)
-        |> printResults
+
+    let (year,day), solution = Years.known |> Map.maxKeyValue
+    let (part1, part2) = solution (inputForDay year day) 
+    printfn "Year %d Day %d\n%d\%d" year day part1 part2
     Environment.Exit(0)
+    
     #endif
 
     let parser = ArgumentParser.Create<Arguments>(programName = "AdventOfCode.exe")
-    let processInput (i: ParseResults<Arguments>) =
-        let year = i.GetResult Year
-        let day = i.GetResult Day
-        years.[year].[day] (AdventOfCode.inputForDay year day)
+    let processInput input =
+        let arguments = parser.Parse input
+        let year = arguments.GetResult Year
+        let day = arguments.GetResult Day
+        match Years.get year day with
+        | Some s -> 
+            let (part1, part2) = s (inputForDay year day)
+            printfn "Part 1: %d\nPart 2: %d" part1 part2
+        | _ -> failwithf "Failed to find year/day %d/%d" year day
 
     let rec waitForInput () =
         printfn "Choose a year / day to run"
         let input = Console.ReadLine()
         match input with
         | "q" -> ()
-        | "h" -> Console.WriteLine(parser.PrintUsage ())
+        | "h" | "?" -> Console.WriteLine(parser.PrintUsage ())
         | _ -> 
-            processInput
-                <| parser.Parse([|input|])
-                |> printResults
+            processInput [| input |]
             waitForInput ()
 
     match argv.Length with
     | 0 -> waitForInput ()
-    | _ ->
-        parser.Parse argv
-            |> processInput
-            |> printResults
+    | _ -> processInput argv
     0

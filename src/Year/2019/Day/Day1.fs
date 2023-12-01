@@ -14,6 +14,6 @@ let theTryannyOfTheRocketEquation: Solution = fun rawInput ->
                 |> Seq.filter fst
                 |> Seq.map snd
                 |> Seq.sumBy fuelForMass
+                |> int64
 
-    sprintf "Total fuel requirement: %d" fuel
-        |> Answer.Two
+    0L, fuel

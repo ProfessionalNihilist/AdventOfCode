@@ -49,4 +49,4 @@ let handyHaversacks (input: string) =
         bagsToRules.["shiny gold"] |> countContainers
             |> printfn "%d" 
 
-        Answer.One (sprintf "%d" count)
+        int64 count,0L

@@ -25,5 +25,5 @@ let ``dive!``: Solution = fun (rawInput: string) ->
         | Up x -> h, d, a - x) (0,0,0)
     let part2 = h * d
 
-    { Part1 = sprintf "%d" part1; Part2 = sprintf "%d" part2 }
+    part1,part2 
 

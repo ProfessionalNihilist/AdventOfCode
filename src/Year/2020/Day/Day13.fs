@@ -48,5 +48,4 @@ let shuttleSearch (input: string) =
     //"1789,37,47,1889", 1202161486L ]
     //    |> List.iter (fun (i,e) -> if part2 i <> e then failwithf "failed on %s" i)
         
-    { Part1 = sprintf "%d" part1; Part2 = sprintf "%d" (part2 input.[1]) }
-
+    int64 part1, int64 (part2 input.[1])
