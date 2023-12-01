@@ -10,3 +10,4 @@ let register () =
     add 2021 5 Day5.``hydrothermal venture``
     add 2021 6 Day6.lanternfish
     add 2021 7 Day7.``the treachery of whales``
+    add 2021 10 Day10.``syntax scoring``

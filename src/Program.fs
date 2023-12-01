@@ -20,7 +20,7 @@ let main argv =
 
     let (year,day), solution = Years.known |> Map.maxKeyValue
     let (part1, part2) = solution (inputForDay year day) 
-    printfn "Year %d Day %d\n%d\%d" year day part1 part2
+    printfn "Year %d Day %d\n%d\n%d" year day part1 part2
     Environment.Exit(0)
     
     #endif
