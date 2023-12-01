@@ -11,8 +11,7 @@ let (trebuchet: Solution) = fun (input: string) ->
     let perLine l = 
         String( [| Seq.find (Char.IsDigit) l; Seq.findBack (Char.IsDigit) l |] ) |> int64
 
-    let isDigitWord (window: string) = 
-        match window with
+    let isDigitWord: string -> char option = function
         | w when w.StartsWith "one" -> Some '1'
         | w when w.StartsWith "two" -> Some '2'
         | "three" -> Some '3'
