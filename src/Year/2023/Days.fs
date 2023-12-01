@@ -14,7 +14,7 @@ let (trebuchet: Solution) = fun (input: string) ->
     let isDigitWord (window: string) = 
         match window with
         | w when w.StartsWith "one" -> Some '1'
-        | w when w.StartsWith"two" -> Some '2'
+        | w when w.StartsWith "two" -> Some '2'
         | "three" -> Some '3'
         | w when w.StartsWith "four" -> Some '4'
         | w when w.StartsWith "five" -> Some '5'
