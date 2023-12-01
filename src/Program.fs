@@ -16,6 +16,8 @@ let main argv =
     Year2019.Days.register ()
     Year2020.Days.register ()
     Year2021.Days.register ()
+    Year2023.register ()
+
     #if DEBUG
 
     let (year,day), solution = Years.known |> Map.maxKeyValue
