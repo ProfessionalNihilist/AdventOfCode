@@ -6,6 +6,7 @@
   <ItemGroup>
     <Compile Include="Years.fs" />
     <Compile Include="Utilities.fs" />
+    <Compile Include="Parsers.fs" />
     <Compile Include="Year\2019\Intcode.fs" />
     <Compile Include="Year\2019\Day\Day1.fs" />
     <Compile Include="Year\2019\Day\Day2.fs" />
@@ -39,6 +40,7 @@
     <Compile Include="Year\2021\Day\Day10.fs" />
     <Compile Include="Year\2021\Days.fs" />
     <Compile Include="Year\2023\Days.fs" />
+    <Compile Include="Year\2024\Days.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>

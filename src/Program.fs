@@ -17,6 +17,7 @@ let main argv =
     Year2020.Days.register ()
     Year2021.Days.register ()
     Year2023.register ()
+    Year2024.register ()
 
     #if DEBUG
 
