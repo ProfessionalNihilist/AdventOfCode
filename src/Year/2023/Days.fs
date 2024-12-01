@@ -8,22 +8,6 @@ open Years
 let part1 = 0L
 let part2 = 0L
 
-let pDigits = many1Satisfy isDigit |>> int64
-
-module FParsec =
-    module Debugging =
-
-        let BP (p: Parser<_,_>) stream =
-            let r = p stream // set a breakpoint here
-            r
-
-        let (<!>) (p: Parser<_,_>) label : Parser<_,_> =
-            fun stream ->
-                printfn "%A: Entering %s" stream.Position label
-                let reply = p stream
-                printfn "%A: Leaving %s (%A)" stream.Position label reply.Status
-                reply
-
 let trebuchet input =
     let perLine l = 
         String( [| Seq.find (Char.IsDigit) l; Seq.findBack (Char.IsDigit) l |] ) |> int64
@@ -79,8 +63,8 @@ module Day2 =
             pstring "green" >>% Green
             pstring "blue"  >>% Blue
         ]
-        let pRound = sepBy1 (pDigits |>> int64 .>> spaces1 .>>. pCubeColour) (pchar ',' .>> spaces1)
-        let pGameId = skipString "Game" .>> spaces1 >>. pDigits .>> pchar ':' .>> spaces1
+        let pRound = sepBy1 (pint64 .>> spaces1 .>>. pCubeColour) (pchar ',' .>> spaces1)
+        let pGameId = skipString "Game" .>> spaces1 >>. pint64 .>> pchar ':' .>> spaces1
         let pGames = sepEndBy1 (pGameId .>>. sepBy1 pRound (pchar ';' .>> spaces1) |>> createGame) newline
 
         match run pGames input with
@@ -106,7 +90,7 @@ module Day3 =
     type Element = Symbol of Position * char | Part of PartNumber | Void
 
     let ``gear ratios`` input =
-        let pPartNumber = getPosition .>>. pDigits |>> Part
+        let pPartNumber = getPosition .>>. pint64 |>> Part
         let pSymbol = getPosition .>>. satisfy (fun c -> c <> '.' && isDigit c |> not) |>> Symbol
         let noise = many (choice [skipChar '.'; skipNewline])
         let parser = (attempt noise) >>. (sepEndBy (pPartNumber <|> pSymbol) noise) .>> eof
@@ -145,7 +129,7 @@ module Day3 =
 
 module Day4 =
     let scratchcards input =
-        let pNum = pDigits .>> spaces
+        let pNum = pint64 .>> spaces
         let pWinning = pstring "Card" .>> spaces1 >>. many1 digit .>> pchar ':' .>> spaces >>. manyTill pNum (pchar '|')
         let pOwn = spaces >>. many1 pNum 
         let parser = many ( pWinning .>>. pOwn ) .>> eof
@@ -185,9 +169,9 @@ module Day5 =
     let ``if you give a seed a fertilizer`` input =
         let pName = many1Satisfy isAsciiLetter  
         let pCategoryName = pName .>> pstring "-to-" .>>. pName .>> pstring " map:" .>>  newline
-        let pRanges = sepEndBy1 (tuple3 (pDigits .>> pchar ' ') (pDigits .>> pchar ' ') pDigits) newline 
+        let pRanges = sepEndBy1 (tuple3 (pint64 .>> pchar ' ') (pint64 .>> pchar ' ') pint64) newline 
         let pCategoryMap = pCategoryName .>>. pRanges  
-        let pSeeds = pstring "seeds: " >>. sepBy1 pDigits (pchar ' ')
+        let pSeeds = pstring "seeds: " >>. sepBy1 pint64 (pchar ' ')
         let parser = pSeeds .>> (many1 newline) .>>. many (pCategoryMap .>> spaces) .>> eof
 
         let toMappingFuncs (_,values) =
