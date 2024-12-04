@@ -36,22 +36,24 @@ module Day2 =
         match run parser input with
         | Failure (a,b,_) -> failwithf "Failed: %s, %A" a b
         | Success (reports,_,_) ->
-            let differences = List.pairwise >> List.map (fun (l,r) -> int64 (l - r))
-            let withinTolerance = differences >> List.map abs >> List.forall (fun x -> x >= 1L && x <= 3L)
+            let changes = List.pairwise >> List.map (fun (l,r) -> int64 (abs (l - r)), int64 (sign (l - r)))
 
             let isSafe1 report =
-                let d  = differences report
-                withinTolerance report
-                    && d |> (List.map sign >> List.pairwise >> List.forall (fun (l,r) -> l = r))
+                let c = changes report
+                c |> List.forall (fun (x,_) -> x >= 1 && x <= 3)
+                    && c |> (List.countBy snd >> List.length >> (=) 1)
 
+            let isSafe2 report =
+                report  |> List.mapi (fun i _ -> List.removeAt i report)
+                        |> List.exists isSafe1
 
-            let part1 =
-                reports
-                |> List.filter isSafe1
-                |> List.length
-                |> int64
+            let countSafe f =
+                reports |> List.filter f |> List.length |> int64
 
-            part1,0L
+            let part1 = countSafe isSafe1
+            let part2 = countSafe isSafe2
+
+            part1,part2
 
 module Day3 =
     type State = { Pairs: (int * int) list; Mul: bool }
