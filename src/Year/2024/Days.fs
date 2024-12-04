@@ -71,8 +71,74 @@ module Day3 =
                     | Failure _ -> 0L
         part1,part2
 
+module Day4 =
+    type Direction = N | NE | E | SE | S | SW | W | NW
+    let ``ceres search`` input =
+        let grid = input |> asLines |> Array.map (fun s -> s.ToCharArray ())
+        let grid = Array2D.init (grid.Length) (grid.[0].Length) (fun x y -> grid.[x].[y])
+        let boundsY = (Array2D.length1 grid) - 1
+        let boundsX = (Array2D.length2 grid) - 1
+
+        let directions = [| N; NE; E; SE; S; SW; W; NW |]
+
+        let part1 =
+            let canSearch x y direction =
+                match direction with
+                | N  when y >= 3                                -> true
+                | NE when y >= 3 && x <= boundsX - 3            -> true
+                | E  when x <= boundsX - 3                      -> true
+                | SE when x <= boundsX - 3 && y <= boundsY - 3  -> true
+                | S  when y <= boundsY - 3                      -> true
+                | SW when y <= boundsY - 3 && x >= 3            -> true
+                | W  when x >= 3                                -> true
+                | NW when x >= 3 && y >= 3                      -> true
+                | _                                             -> false
+
+            let search x y direction =
+                let isXmas a = "XMAS" = String ( Array.ofSeq a )
+                match direction with
+                | N  when isXmas (Seq.rev grid[y - 3..y,x])                -> Some (x,y)
+                | S  when isXmas grid[y..y+3,x]                            -> Some (x,y)
+                | E  when isXmas grid[y,x..x+3]                            -> Some (x,y)
+                | W  when isXmas (Seq.rev grid[y,x - 3..x])                -> Some (x,y)
+                | SE when isXmas (Array.init 4 (fun n -> grid[y+n,x+n]))   -> Some (x,y)
+                | NE when isXmas (Array.init 4 (fun n -> grid[y-n,x+n]))   -> Some (x,y)
+                | SW when isXmas (Array.init 4 (fun n -> grid[y+n,x-n]))   -> Some (x,y)
+                | NW when isXmas (Array.init 4 (fun n -> grid[y-n,x-n]))   -> Some (x,y)
+                | _ -> None
+
+            let mutable xmases = 0L
+            for x in 0 .. boundsX do
+                for y in 0 .. boundsY do
+                    if grid[y,x] = 'X' then
+                        for d in directions |> Seq.filter (canSearch x y) do
+                            match search x y d with
+                            | Some _ -> xmases <- xmases + 1L;
+                            | _ -> ()
+            xmases
+
+        let part2 =
+            let canSearch x y = x > 0 && y > 0 && x < boundsX && y < boundsY
+            let masOrSam s = s = "MAS" || s = "SAM"
+            let search x y =
+                let first = String (Array.init 3 (fun n -> grid[y-1+n,x-1+n]))
+                let second = String (Array.init 3 (fun n -> grid[y+1-n,x-1+n]))
+                if (masOrSam first && masOrSam second) then Some (x,y) else None
+
+            let mutable mases = 0L
+            for x in 0 .. boundsX do
+                for y in 0 .. boundsY do
+                    if grid[y,x] = 'A' && canSearch x y then
+                        match search x y with
+                        | Some _ -> mases <- mases + 1L
+                        | None -> ()
+            mases
+
+        part1,part2
+
 let register () =
     add 2024 1 Day1.``historian hysteria``
     add 2024 2 Day2.``red-nosed reports``
     add 2024 3 Day3.``mull it over``
+    add 2024 4 Day4.``ceres search``
 
