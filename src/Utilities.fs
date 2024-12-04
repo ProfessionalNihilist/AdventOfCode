@@ -20,7 +20,7 @@ module AdventOfCode
     let split (sep: string) (str: string) =
         str.Split(sep, trimAndEmpty)
 
-    let authCookieContainer =
+    let authCookieContainer () =
         let cookies = CookieContainer()
         let token = 
             match Environment.GetEnvironmentVariable("ADVENTOFCODE") with
@@ -41,7 +41,8 @@ module AdventOfCode
             match File.Exists filename with
             | false ->
                 let uri = sprintf "https://adventofcode.com/%d/day/%d/input" year day
-                let input = Http.RequestString(uri, cookieContainer = authCookieContainer)
+                let cookies = authCookieContainer ()
+                let input = Http.RequestString(uri, cookieContainer = cookies)
                 File.WriteAllText(filename, input)
                 input
             | true ->
