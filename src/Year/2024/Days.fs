@@ -4,6 +4,7 @@ open AdventOfCode
 open FParsec
 open System
 open Years
+open System.Text.RegularExpressions
 
 module Day1 =
     let ``historian hysteria`` input =
@@ -27,6 +28,32 @@ module Day1 =
 
             part1,part2
 
+module Day2 =
+    let ``red-nosed reports`` input =
+        let preport = sepBy1 pint64 (pchar ' ')
+        let parser = sepEndBy1 preport newline
+
+        match run parser input with
+        | Failure (a,b,_) -> failwithf "Failed: %s, %A" a b
+        | Success (reports,_,_) ->
+            let differences = List.pairwise >> List.map (fun (l,r) -> int64 (l - r))
+            let withinTolerance = differences >> List.map abs >> List.forall (fun x -> x >= 1L && x <= 3L)
+
+            let isSafe1 report =
+                let d  = differences report
+                withinTolerance report
+                    && d |> (List.map sign >> List.pairwise >> List.forall (fun (l,r) -> l = r))
+
+
+            let part1 =
+                reports
+                |> List.filter isSafe1
+                |> List.length
+                |> int64
+
+            part1,0L
+
 let register () =
     add 2024 1 Day1.``historian hysteria``
+    add 2024 2 Day2.``red-nosed reports``
 
