@@ -53,7 +53,26 @@ module Day2 =
 
             part1,0L
 
+module Day3 =
+    type State = { Pairs: (int * int) list; Mul: bool }
+        with static member Initial = { Pairs = []; Mul = true }
+
+    let ``mull it over`` input =
+        let matches = Regex.Matches (input, @"mul\((\d{1,3}),(\d{1,})\)")
+        let part1 = matches |> Seq.map (fun x -> x.Groups.Item(1).Value, x.Groups.Item(2).Value)
+                            |> Seq.sumBy (fun (l,r) -> int64 l * int64 r)
+
+        let doMul = pstring "do()" .>> updateUserState (fun s -> true) >>% None
+        let dontMul = pstring "don't()" .>> updateUserState (fun s -> false) >>% None
+        let pmul = pstring "mul(" >>. pint64 .>> pchar ',' .>>. pint64 .>> pchar ')' .>> userStateSatisfies id |>> Some
+        let parser = many ((attempt pmul) <|> doMul <|> dontMul <|> (anyChar >>% None))
+        let part2 = match runParserOnString parser true "" input with
+                    | Success (r,_,_) -> r |> Seq.choose id |> Seq.sumBy (fun (l,r) -> l * r) |> int64
+                    | Failure _ -> 0L
+        part1,part2
+
 let register () =
     add 2024 1 Day1.``historian hysteria``
     add 2024 2 Day2.``red-nosed reports``
+    add 2024 3 Day3.``mull it over``
 
