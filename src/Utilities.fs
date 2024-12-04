@@ -50,6 +50,7 @@ module AdventOfCode
 
     module Array2D =
         open System.Numerics
+        open System.Text
 
         let equalsVec (left: 'a [,]) (right: 'a [,]) =
             let areEqual i =
@@ -82,3 +83,12 @@ module AdventOfCode
             count
         
         let flatten (A:'a[,]) = A |> Seq.cast<'a>
+
+        let toString (s: 'a [,]) =
+            let b = StringBuilder ()
+            for x in 0 .. (Array2D.length1 s) - 1 do
+                let bx = StringBuilder ()
+                for y in 0 .. (Array2D.length2 s) - 1 do
+                    bx.Append (s.[x,y]) |> ignore
+                b.AppendLine (bx.ToString ()) |> ignore
+            b.ToString ()
