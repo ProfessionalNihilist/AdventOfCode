@@ -138,9 +138,44 @@ module Day4 =
 
         part1,part2
 
+module Day5 =
+    let ``print queue`` input =
+        let rules = many (pint64 .>> pchar '|' .>>. pint64 .>> newline) .>> newline
+        let pages = sepEndBy1 (sepBy1 pint64 (pchar ',')) newline
+
+        let inOrder pages (r1,r2) =
+            match List.tryFindIndex ((=) r1) pages, List.tryFindIndex ((=) r2) pages with
+            | Some i1, Some i2 -> i1 < i2
+            | _ -> true
+
+        let middle (x: 'a list) =
+            let l = List.length x
+            let mi = floor (float l / 2.0)
+            List.item (int mi) x
+
+        match run (rules .>>. pages) input with
+            | Failure (m,e,_) -> failwithf "%s %A" m e
+            | Success ((rules, pages),_,_) ->
+                let ordered,unordered = List.partition (fun p -> List.forall (inOrder p) rules) pages
+
+                let sumMiddles = List.map middle >> List.sum >> int64
+
+                let before l r =
+                    match List.tryFindIndex ((=) (l,r)) rules with
+                    | Some _ -> -1
+                    | None ->
+                        match List.tryFindIndex ((=) (r,l)) rules with
+                        | Some _ -> 1
+                        | None -> 0
+
+                let reordered = List.map (List.sortWith before) unordered
+
+                sumMiddles ordered, sumMiddles reordered
+
 let register () =
     add 2024 1 Day1.``historian hysteria``
     add 2024 2 Day2.``red-nosed reports``
     add 2024 3 Day3.``mull it over``
     add 2024 4 Day4.``ceres search``
+    add 2024 5 Day5.``print queue``
 
