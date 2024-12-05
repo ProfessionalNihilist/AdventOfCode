@@ -3,6 +3,17 @@ module AdventOfCode
     open System.Net
     open FSharp.Data
     open System
+    open FParsec
+
+    let parseOrThrow (p:Parser<'a, unit>) (i: string) =
+        match runParserOnString p () "" i with
+        | Success (r,_,_) -> r
+        | Failure (m,e,_) -> failwithf "%s %A" m e
+
+    let parseOrThrowS (p:Parser<'a, 'u>) (s: 'u) (i: string) =
+        match runParserOnString p s "" i with
+        | Success (r,s,_) -> r,s
+        | Failure (m,e,_) -> failwithf "%s %A" m e
 
     let unwrap opt map =
         match opt with

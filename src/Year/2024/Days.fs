@@ -147,30 +147,29 @@ module Day5 =
             match List.tryFindIndex ((=) r1) pages, List.tryFindIndex ((=) r2) pages with
             | Some i1, Some i2 -> i1 < i2
             | _ -> true
-
+            
         let middle (x: 'a list) =
             let l = List.length x
             let mi = floor (float l / 2.0)
             List.item (int mi) x
 
-        match run (rules .>>. pages) input with
-            | Failure (m,e,_) -> failwithf "%s %A" m e
-            | Success ((rules, pages),_,_) ->
-                let ordered,unordered = List.partition (fun p -> List.forall (inOrder p) rules) pages
+        let (rules,pages) = parseOrThrow (rules .>>. pages) input
 
-                let sumMiddles = List.map middle >> List.sum >> int64
+        let ordered,unordered = List.partition (fun p -> List.forall (inOrder p) rules) pages
 
-                let before l r =
-                    match List.tryFindIndex ((=) (l,r)) rules with
-                    | Some _ -> -1
-                    | None ->
-                        match List.tryFindIndex ((=) (r,l)) rules with
-                        | Some _ -> 1
-                        | None -> 0
+        let sumMiddles = List.map middle >> List.sum >> int64
 
-                let reordered = List.map (List.sortWith before) unordered
+        let before l r =
+            match List.tryFindIndex ((=) (l,r)) rules with
+            | Some _ -> -1
+            | None ->
+                match List.tryFindIndex ((=) (r,l)) rules with
+                | Some _ -> 1
+                | None -> 0
 
-                sumMiddles ordered, sumMiddles reordered
+        let reordered = List.map (List.sortWith before) unordered
+
+        sumMiddles ordered, sumMiddles reordered
 
 let register () =
     add 2024 1 Day1.``historian hysteria``

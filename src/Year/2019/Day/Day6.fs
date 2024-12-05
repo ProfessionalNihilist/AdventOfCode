@@ -2,31 +2,25 @@
 
 open AdventOfCode
 open System
+open FParsec
 
-let test = @"COM)B
-B)C
-C)D
-D)E
-E)F
-B)G
-G)H
-D)I
-E)J
-J)K
-K)L"
+let ``universal orbit map`` input : int64 * int64 =
+    let porbit = (manyChars asciiLetter) .>> pchar ')' .>>. (manyChars asciiLetter)
+    let porbits = sepEndBy porbit newline
 
-let read (s: string) =
-    let a =  s |> Seq.takeWhile ((<>) ')') |> String.Concat
-    let b = s.Substring (a.Length + 1)
-    a,b
+    let test = @"COM)B
+    B)C
+    C)D
+    D)E
+    E)F
+    B)G
+    G)H
+    D)I
+    E)J
+    J)K
+    K)L"
 
-let universalOrbitMap (rawInput: string) =
-    let starMap (input: string) = 
-        input.Split('\n')
-        |> Seq.map read
-        |> Seq.groupBy fst
-        |> Seq.map (fun (k,o) -> k, o |> Seq.map snd |> Set)
-        |> Map.ofSeq
-
+    let orbits = parseOrThrow porbits input
+    
     
     0L,0L
