@@ -59,9 +59,17 @@ module AdventOfCode
             | true ->
                 File.ReadAllText filename
 
+    module String =
+        let toLines (str: string) = str.Split("\n", trimAndEmpty)
+
     module Array2D =
         open System.Numerics
         open System.Text
+        open System.Collections.Generic
+
+        let ofString input =
+            let grid = input |> asLines |> Array.map (fun s -> s.ToCharArray ())
+            Array2D.init (grid.Length) (grid.[0].Length) (fun x y -> grid.[x].[y])
 
         let equalsVec (left: 'a [,]) (right: 'a [,]) =
             let areEqual i =
@@ -103,3 +111,25 @@ module AdventOfCode
                     bx.Append (s.[x,y]) |> ignore
                 b.AppendLine (bx.ToString ()) |> ignore
             b.ToString ()
+
+        let tryPicki (f: int * int -> 'a -> 'b option) (s: 'a [,])  =
+            let mutable result = None
+            let mutable found = false
+
+            for x in 0 .. (Array2D.length1 s) - 1 do
+                for y in 0 .. (Array2D.length2 s) - 1 do
+                    // todo: end early
+                    if found = false then
+                        result <- f (x,y) (s[y,x])
+                        found <- result <> None
+            result
+
+        let picki (f: int * int -> 'a -> 'b option) (s: 'a [,])  =
+            match tryPicki f s with
+            | Some item -> item
+            | None -> raise (KeyNotFoundException ())
+
+        let max (s: 'a [,]) =
+            let mutable m = s[0,0]
+            Array2D.iter (fun x -> if x > m then m <- x) s
+            m
