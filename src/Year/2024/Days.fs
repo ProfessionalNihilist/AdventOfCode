@@ -177,24 +177,25 @@ module Day6  =
         let grid = Array2D.ofString input
         let xy = grid |> Array2D.picki (fun xy i -> if i = '^' then Some xy else None)
 
-        let isInBounds x y =
-            x >= 0 && y >= 0 && x < Array2D.length1 grid && y < Array2D.length2 grid
+        let boundsX = Array2D.length1 grid - 1
+        let boundsY = Array2D.length2 grid - 1
 
-        let walk origin (tf: int [,] -> bool) (g: char [,]) =
+        let isInBounds x y =
+            x >= 0 && y >= 0 && x <= boundsX && y <= boundsY
+
+        let walk origin (tf: int -> bool) (p: (int*int) -> unit) (g: char [,])  =
             let mutable inBounds = true
             let mutable looped = false
             let mutable facing = N
             let mutable x = fst origin
             let mutable y = snd origin
-            let mutable path = []
 
             let frequency = Array2D.init (Array2D.length1 g) (Array2D.length2 g) (fun _ _ -> 0)
             frequency[y,x] <- frequency[y,x] + 1
 
-            while inBounds do
-                looped <- tf frequency
+            while inBounds && not looped do
+                looped <- tf frequency[y,x]
                 g[y,x] <- 'X'
-
                 let nx,ny = match facing with
                             | N -> x, y - 1
                             | S -> x, y + 1
@@ -202,31 +203,39 @@ module Day6  =
                             | W -> x - 1, y
 
                 match isInBounds nx ny with
-                | true when g[ny,nx] = '#' ->
+                | true when g[ny,nx] = '#' || g[ny,nx] = 'O' ->
                     facing <- match facing with | N -> E | E -> S | S -> W | W -> N
                 | true ->
-                    path <- (nx,ny) :: path
+                    p (nx,ny)
                     frequency[y,x] <- frequency[y,x] + 1
                     x <- nx
                     y <- ny
                 | false -> inBounds <- false
+            g,looped
 
-            g,path
+        let mutable path = []
+        let addToPath xy =
+            path <- xy :: path
+            () 
 
-        let p1,initialPath = walk xy (fun _ -> true) (Array2D.copy grid)
+        let p1,_ = walk xy (fun _ -> false) addToPath (Array2D.copy grid)
         let part1 = Array2D.countBy ((=) 'X') p1 |> int64
 
         // ok lets brute-force this mother
-        let clones = initialPath |> List.map (fun (x,y) -> let g = Array2D.copy grid
-                                                           g[y,x] <- 'O'
-                                                           g)
+        let clones = path |> Seq.filter ((<>) xy)
+                          |> Seq.distinct
+                          |> Seq.map (fun (x,y) ->  let g = Array2D.copy grid
+                                                    g[y,x] <- 'O'
+                                                    g)
 
-        // todo: pass in current coords and only check current position
-        let hasLooped (s: int [,]) = Array2D.max s > 1000
+        let hasLooped s = s > 10
+        let part2 = clones  |> Seq.map (fun c -> walk xy hasLooped (fun _ -> ()) c)
+                            |> Seq.map snd
+                            |> Seq.filter id
+                            |> Seq.length
+                            |> int64
 
-        //let part2 =
-
-        part1,0L
+        part1,part2
 
 let register () =
     add 2024 1 Day1.``historian hysteria``
