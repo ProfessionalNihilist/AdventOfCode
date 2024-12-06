@@ -221,6 +221,7 @@ module Day6  =
                                                            g[y,x] <- 'O'
                                                            g)
 
+        // todo: pass in current coords and only check current position
         let hasLooped (s: int [,]) = Array2D.max s > 1000
 
         //let part2 =
