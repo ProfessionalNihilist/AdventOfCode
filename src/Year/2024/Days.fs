@@ -237,6 +237,36 @@ module Day6  =
 
         part1,part2
 
+module Day7 =
+    let ``bridge repair`` input =
+        let ptest = pint64 .>> pchar ':' .>> spaces
+        let pvalues = (sepBy pint64 (pchar ' ')) .>> spaces
+        let pcalibrations = many (ptest .>>. pvalues)
+
+        let solve operators (test, values) =
+            let rec apply sum vals =
+                match vals with
+                | i :: tail -> operators |> List.tryPick (fun op -> apply (op sum i) tail)
+                | [] -> if sum = test then Some test else None
+            apply (List.head values) (List.tail values)
+
+        let solve1 = solve [(+); (*)]
+        let solve2 = solve [(+); (*); (fun l r -> int64 (sprintf "%d%d" l r))]
+
+        let calibrations = parseOrThrow pcalibrations input
+
+        let part1 =
+            calibrations
+            |> List.choose solve1
+            |> List.sum
+
+        let part2 =
+            calibrations
+            |> List.choose solve2
+            |> List.sum
+
+        part1,part2
+
 let register () =
     add 2024 1 Day1.``historian hysteria``
     add 2024 2 Day2.``red-nosed reports``
@@ -244,4 +274,5 @@ let register () =
     add 2024 4 Day4.``ceres search``
     add 2024 5 Day5.``print queue``
     add 2024 6 Day6.``guard gallivant``
+    add 2024 7 Day7.``bridge repair``
 
