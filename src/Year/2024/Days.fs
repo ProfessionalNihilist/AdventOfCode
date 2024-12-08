@@ -266,6 +266,48 @@ module Day7 =
             |> List.sum
 
         part1,part2
+        
+module Day8 =
+    let ``resonant collinearity`` input =
+        let grid = Array2D.ofString input
+        let (boundsX,boundsY) = Array2D.bounds grid
+        
+        let inBounds x y =
+            x >= 0 && y >= 0 && x <= boundsX && y <= boundsY
+        
+        let antennas =
+            grid
+            |> Array2D.choosei (fun xy c -> if c <> '.' then Some xy else None)
+            |> Array.groupBy (fun (x,y) -> grid[y,x])
+            
+        let findAntinodes (p: (int * int) array) =
+            let pairs = Seq.allPairs p p
+                        |> Seq.filter (fun (l,r) -> l <> r)
+                        |> Seq.map (fun (l,r) -> if snd l <= snd r then l,r else r,l)
+            seq {
+                for ((lx,ly),(rx,ry)) in pairs do
+                    let dx = (lx - rx) 
+                    let dy = (ly - ry) 
+                    
+                    let a1x = lx - 2 * dx
+                    let a1y = ly - 2 * dy
+                    if inBounds a1x a1y then yield (a1x,a1y)
+                    
+                    let a2x = rx + 2 * dx
+                    let a2y = ry + 2 * dy
+                    if inBounds a2x a2y then yield (a2x,a2y)
+            }
+            
+        let nodes = antennas
+                    |> Seq.map snd
+                    |> Seq.collect findAntinodes
+                    |> Seq.distinct
+                    
+        let part1 = nodes
+                    |> Seq.length
+                    |> int64
+            
+        part1,0L
 
 let register () =
     add 2024 1 Day1.``historian hysteria``
@@ -275,4 +317,5 @@ let register () =
     add 2024 5 Day5.``print queue``
     add 2024 6 Day6.``guard gallivant``
     add 2024 7 Day7.``bridge repair``
+    add 2024 8 Day8.``resonant collinearity``
 

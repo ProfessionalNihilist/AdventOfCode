@@ -133,3 +133,12 @@ module AdventOfCode
             let mutable m = s[0,0]
             Array2D.iter (fun x -> if x > m then m <- x) s
             m
+
+        let choosei (f: int * int -> 'a -> 'b option) (s: 'a [,]) =
+            seq {
+                for x in 0 .. (Array2D.length1 s) - 1 do
+                    for y in 0 .. (Array2D.length2 s) - 1 do
+                        match f (x,y) s[y,x] with | Some a -> yield a | None -> ()
+            } |> Array.ofSeq
+
+        let bounds (s: 'a [,]) = (Array2D.length1 s - 1, Array2D.length2 s - 1)
